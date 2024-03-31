@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equic="X-UA-Compatible" content = "IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+        <title> RAiNcalleER's Website </title>
+        <link rel="stylesheet" href="style.css">    
+        <!-- links the css file to html -->
+</head>
+
+<body>
+<div id="header">
+        <div class="container">
+                <nav>
+                        <img src="images/logo.png" class="logo">
+                        <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Contact</a></li>
+                        </ul>
+                </nav>
+                <div class = "header-text">
+                        <h1>Hello :D<br> I'm <span> Hongyi</span> Mei</h1>
+                        <p>UofT Incoming Freshman</p>
+                </div>
+        </div>
+</div>
+<!-- about -->
+<div id="about">
+        <div class="container">
+                <div class="row">
+                        <div class="about-col-1">
+                                <img src="images/cool.jpg">
+                                <p>
+                                        I look dead because it was a long concert
+                                </p>
+                        </div>
+                        <div class="about-col-2">
+                                <h1 class="sub-title">About Me</h1>
+                                <p>
+                                        I came from Shunde, a small city in the southern China. The 
+                                        background of my header is of a famous attraction in Shunde, called
+                                        the Mt. Shunfeng Park. I am proud of my hometown, and I love 
+                                        telling people (like you!) about how cool my hometown is. 
+                                        (Click the Shunde Facts button below!)
+                                        <br>I like STEM in general (but not biology). I have done several 
+                                        high school STEM contests, and held leader-position in some clubs 
+                                        from my school, all of which you can see from my Experiences below.
+                                        <br>I came to Canada in 2019, and I will be joining University of 
+                                        Toronto St. George class 2028 as a Computer Science freshman.
+                                </p>
+                                <div class="tab-titles">
+                                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                                        <p class="tab-links" onclick="opentab('hobbies')">Hobbies</p>
+                                        <p class="tab-links" onclick="opentab('facts')">Shunde Facts</p>
+                                </div>
+                                <div class="tab-contents active-tab" id="skills">
+                                        <ul>
+                                                <li><span>Introductory Algorithm/Data Structure</span>
+                                                        <br>Coding contests and LeetCode</li>
+                                                <li><span>Introductory Graphic Designing</span>
+                                                        <br>Canvas designing for School Club promotions</li>
+                                                <li><span>Introductory Game Development</span>
+                                                        <br>Recreating popular games, as listed below</li>
+                                                <li><span>Introductory Web Development</span>
+                                                        <br>The website you are seeing right now!</li>
+                                        </ul>
+                                </div>
+                                <div class="tab-contents" id="experience">
+                                        <ul>
+                                                <li><span>fafafa</span>
+                                                        <br>dododo</li>
+                                                <li><span>fafafa</span>
+                                                        <br>dododo</li>
+                                                <li><span>fafafa</span>
+                                                        <br>dododo</li>
+                                        </ul>
+                                </div>
+                                <div class="tab-contents" id="hobbies">
+                                        <ul>
+                                                <li><span>fafafa</span>
+                                                        <br>dododo</li>
+                                                <li><span>fafafa</span>
+                                                        <br>dododo</li>
+                                                <li><span>fafafa</span>
+                                                        <br>dododo</li>
+                                        </ul>
+                                </div>
+                                <div class="tab-contents" id="facts">
+                                        <ul>
+                                                <li><span>fafafa</span>
+                                                        <br>dododo</li>
+                                                <li><span>fafafa</span>
+                                                        <br>dododo</li>
+                                                <li><span>fafafa</span>
+                                                        <br>dododo</li>
+                                        </ul>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+<!-- portfolio -->
+<div id="portfolio">
+        <div class="container">
+               <h1 class="sub-title">My Work</h1> 
+               <div class="work-list">
+                        <div class="work">
+                                <img src="images/work-1.png">
+                        </div>
+                        <div class="work">
+                                <img src="images/work-2.png">
+                        </div>
+                        <div class="work">
+                                <img src="images/work-3.png">
+                        </div>
+               </div>
+        </div>
+</div>
+<script>
+
+        var tablinks = document.getElementsByClassName("tab-links");
+        var tabcontents = document.getElementsByClassName("tab-contents");
+
+        function opentab(tabname){
+                for(tablink of tablinks){
+                        tablink.classList.remove("active-link");
+                }
+                for(tabcontent of tabcontents){
+                        tabcontent.classList.remove("active-tab");
+                }
+                event.currentTarget.classList.add("active-link");
+                document.getElementById(tabname).classList.add("active-tab");
+        }
+
+</script>
+
+</body>
+</html>
