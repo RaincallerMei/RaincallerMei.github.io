@@ -1,142 +1,179 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-        <meta charset="UTF-8">
-        <meta http-equic="X-UA-Compatible" content = "IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
-        <title> RAiNcalleER's Website </title>
-        <link rel="stylesheet" href="style.css">    
-        <!-- links the css file to html -->
+    <meta charset="UTF-8">
+    <meta http-equic="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+    <title> RAiNcalleER's Website </title>
+    <link rel="stylesheet" href="style.css">
+    <!-- links the css file to html -->
 </head>
 
 <body>
-<div id="header">
+    <div id="header">
         <div class="container">
-                <nav>
-                        <img src="images/logo.png" class="logo">
+            <nav>
+                <img src="images/logo.png" class="logo">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-text">
+                <h1>Hello :D<br> I'm <span> Hongyi</span> Mei</h1>
+                <p>UofT Incoming Freshman</p>
+            </div>
+        </div>
+    </div>
+    <!-- about -->
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="about-col-1">
+                    <img src="images/Funi.jpg">
+                    <p>
+                        Help I'm getting eaten
+                    </p>
+                </div>
+                <div class="about-col-2">
+                    <h1 class="sub-title">About Me</h1>
+                    <p>
+                        I grew up in Shunde, a small city in southern China. I am proud of my hometown, 
+                        and I love to annoy people (like you!) about how cool my hometown is. 
+                        (Click the Shunde Facts button below! 🫵)
+                    </p>
+                    <p>
+                        <br>I like STEM in general (but not biology). I have done several
+                        high school STEM contests, and held leader-position in some clubs
+                        from my school, all of which you can see from my Experience below.
+                    </p>
+                    <p>
+                        <br>I'm interested in studying Astronomy, Game Dev, and recently Artificial 
+                        Intelligence. I wish to pursue a career that includes at least two of the above.
+                    </p>
+                    <p>
+                        <br>I will be joining University of Toronto St. George class 2028
+                        as a Computer Science freshman. Look forward to this new journey!
+                    </p>
+                    <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                        <p class="tab-links" onclick="opentab('hobbies')">Hobbies</p>
+                        <p class="tab-links" onclick="opentab('facts')">Shunde Facts</p>
+                    </div>
+                    <div class="tab-contents active-tab" id="skills">
                         <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Projects</a></li>
-                                <li><a href="#">Contact</a></li>
+                            <li><span>Introductory Algorithm/Data Structure</span>
+                                <br>Using basic Python and C++
+                            </li>
+                            <li><span>Introductory Graphic Designing</span>
+                                <br>Canvas designing for School Club promotions
+                            </li>
+                            <li><span>Introductory Game Development</span>
+                                <br>Recreating arcade games using Unity Engine
+                            </li>
+                            <li><span>Introductory Web Development</span>
+                                <br>The website you are seeing right now!
+                            </li>
                         </ul>
-                </nav>
-                <div class = "header-text">
-                        <h1>Hello :D<br> I'm <span> Hongyi</span> Mei</h1>
-                        <p>UofT Incoming Freshman</p>
+                    </div>
+                    <div class="tab-contents" id="experience">
+                        <ul>
+                            <li><span>School Club President</span>
+                                <br>Math Club, CS Club, Astronomy Club, Physics Club (Founder)
+                            </li>
+                            <li><span>CaYPT Team Captain</span>
+                                <br>Second place at CaYPT 2023; Qualified for IYPT camp
+                            </li>
+                            <li><span>Significant CEMC Contest Honor Rolls</span>
+                                <br>CCC Sr Honor Roll Group 3 (2022)
+                                <br>Fryer, Honor Roll Group 4 (2021)
+                                <br>Cayley, Honor Roll Group 4 (2022)
+                                <br>Galois Honor Roll Group 2(2022)
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="hobbies">
+                        <ul>
+                            <li><span>Body weight workout</span>
+                                <br>Learning Calisthetics
+                            </li>
+                            <li><span>Long-distance running</span>
+                                <br>5km pb 22:58; aiming at sub 21 min!
+                            </li>
+                            <li><span>Philosophy & Weeb Culture</span>
+                                <br>Learning why people like anime is kinda interesting
+                            </li>
+                            <li><span>Photography</span>
+                                <br>Click click 📷
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="facts">
+                        <ul>
+                            <li><span>Cradle of Cantonese Cuisine</span>
+                                <br>One of the four UNESCO Cities of Gastronomy in China
+                            </li>
+                            <li><span>Mt. Shunfeng Park</span>
+                                <br>The biggest <i>Paifang</i> (arch) in China
+                            </li>
+                            <li><span>Martial Arts</span>
+                                <br>Bruce Lee's ancestral town
+                            </li>
+                            <li><span>Nice Economy</span>
+                                <br>A substantial manufacturing base in the Pearl River Delta
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
         </div>
-</div>
-<!-- about -->
-<div id="about">
+    </div>
+    <!-- portfolio -->
+    <div id="portfolio">
         <div class="container">
-                <div class="row">
-                        <div class="about-col-1">
-                                <img src="images/cool.jpg">
-                                <p>
-                                        I look dead because it was a long concert
-                                </p>
-                        </div>
-                        <div class="about-col-2">
-                                <h1 class="sub-title">About Me</h1>
-                                <p>
-                                        I came from Shunde, a small city in the southern China. The 
-                                        background of my header is of a famous attraction in Shunde, called
-                                        the Mt. Shunfeng Park. I am proud of my hometown, and I love 
-                                        telling people (like you!) about how cool my hometown is. 
-                                        (Click the Shunde Facts button below!)
-                                        <br>I like STEM in general (but not biology). I have done several 
-                                        high school STEM contests, and held leader-position in some clubs 
-                                        from my school, all of which you can see from my Experiences below.
-                                        <br>I came to Canada in 2019, and I will be joining University of 
-                                        Toronto St. George class 2028 as a Computer Science freshman.
-                                </p>
-                                <div class="tab-titles">
-                                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
-                                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
-                                        <p class="tab-links" onclick="opentab('hobbies')">Hobbies</p>
-                                        <p class="tab-links" onclick="opentab('facts')">Shunde Facts</p>
-                                </div>
-                                <div class="tab-contents active-tab" id="skills">
-                                        <ul>
-                                                <li><span>Introductory Algorithm/Data Structure</span>
-                                                        <br>Coding contests and LeetCode</li>
-                                                <li><span>Introductory Graphic Designing</span>
-                                                        <br>Canvas designing for School Club promotions</li>
-                                                <li><span>Introductory Game Development</span>
-                                                        <br>Recreating popular games, as listed below</li>
-                                                <li><span>Introductory Web Development</span>
-                                                        <br>The website you are seeing right now!</li>
-                                        </ul>
-                                </div>
-                                <div class="tab-contents" id="experience">
-                                        <ul>
-                                                <li><span>fafafa</span>
-                                                        <br>dododo</li>
-                                                <li><span>fafafa</span>
-                                                        <br>dododo</li>
-                                                <li><span>fafafa</span>
-                                                        <br>dododo</li>
-                                        </ul>
-                                </div>
-                                <div class="tab-contents" id="hobbies">
-                                        <ul>
-                                                <li><span>fafafa</span>
-                                                        <br>dododo</li>
-                                                <li><span>fafafa</span>
-                                                        <br>dododo</li>
-                                                <li><span>fafafa</span>
-                                                        <br>dododo</li>
-                                        </ul>
-                                </div>
-                                <div class="tab-contents" id="facts">
-                                        <ul>
-                                                <li><span>fafafa</span>
-                                                        <br>dododo</li>
-                                                <li><span>fafafa</span>
-                                                        <br>dododo</li>
-                                                <li><span>fafafa</span>
-                                                        <br>dododo</li>
-                                        </ul>
-                                </div>
-                        </div>
+            <h1 class="sub-title">Stuff I do</h1>
+            <div class="work-list">
+                <div class="work">
+                    <img src="images/work-1.png">
+                    <div class="layer">
+                        <h3>Game Development</h3>
+                        <p>
+                            Recreating arcade games 
+                        </p>
+                        <a href="#"></a>
+                    </div>
                 </div>
+                <div class="work">
+                    <img src="images/work-2.png">
+                </div>
+                <div class="work">
+                    <img src="images/work-3.png">
+                </div>
+            </div>
         </div>
-</div>
-<!-- portfolio -->
-<div id="portfolio">
-        <div class="container">
-               <h1 class="sub-title">My Work</h1> 
-               <div class="work-list">
-                        <div class="work">
-                                <img src="images/work-1.png">
-                        </div>
-                        <div class="work">
-                                <img src="images/work-2.png">
-                        </div>
-                        <div class="work">
-                                <img src="images/work-3.png">
-                        </div>
-               </div>
-        </div>
-</div>
-<script>
+    </div>
+    <script>
 
         var tablinks = document.getElementsByClassName("tab-links");
         var tabcontents = document.getElementsByClassName("tab-contents");
 
-        function opentab(tabname){
-                for(tablink of tablinks){
-                        tablink.classList.remove("active-link");
-                }
-                for(tabcontent of tabcontents){
-                        tabcontent.classList.remove("active-tab");
-                }
-                event.currentTarget.classList.add("active-link");
-                document.getElementById(tabname).classList.add("active-tab");
+        function opentab(tabname) {
+            for (tablink of tablinks) {
+                tablink.classList.remove("active-link");
+            }
+            for (tabcontent of tabcontents) {
+                tabcontent.classList.remove("active-tab");
+            }
+            event.currentTarget.classList.add("active-link");
+            document.getElementById(tabname).classList.add("active-tab");
         }
 
-</script>
+    </script>
 
 </body>
+
 </html>
