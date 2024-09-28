@@ -1,4 +1,4 @@
 # RaincallerMei.github.io
-## HIII
+## Hi!!
 
-This is my website. I'm currently still learning on how to make it look better.
+This is my website. I'm currently learning on how to make it look better.
