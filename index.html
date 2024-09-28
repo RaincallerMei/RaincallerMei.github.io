@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8">
     <meta http-equic="X-UA-Compatible" content="IE=edge">
@@ -8,6 +8,7 @@
     <title> RAiNcalleER's Website </title>
     <link rel="stylesheet" href="style.css">
     <!-- links the css file to html -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
 </head>
 
 <body>
@@ -15,20 +16,27 @@
         <div class="container">
             <nav>
                 <img src="images/logo.png" class="logo">
-                <ul>
+                <ul id="sidemenu">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Projects</a></li>
+                    <!-- --------------- -->
+                    <li><a href="#">Blog</a></li> 
+                    <!-- --------------- -->
                     <li><a href="#">Contact</a></li>
+                    <i class="fas fa-times" onclick = "closemenu()"></i>
                 </ul>
+                <i class="fas fa-bars" onclick = "openmenu()"></i>
             </nav>
             <div class="header-text">
-                <h1>Hello :D<br> I'm <span> Hongyi</span> Mei</h1>
-                <p>UofT Incoming Freshman</p>
+                <h1>Hello<br> I'm <span> Hongyi</span> Mei</h1>
+                <p>UofT First Year Student</p>
             </div>
         </div>
     </div>
+
     <!-- about -->
+    
     <div id="about">
         <div class="container">
             <div class="row">
@@ -40,23 +48,26 @@
                 </div>
                 <div class="about-col-2">
                     <h1 class="sub-title">About Me</h1>
+                    <p>If you know me online, 
+                        you may have known me as <span style="background-color: #5ec0d1">RAiNcalleER.</span></p>
                     <p>
-                        I grew up in Shunde, a small city in southern China. I am proud of my hometown, 
-                        and I love to annoy people (like you!) about how cool my hometown is. 
-                        (Click the Shunde Facts button below! 🫵)
+                        <br>I grew up in <span style="background-color: #5ec0d1">Shunde</span>, a small town 
+                        in southern China. I am proud of my hometown, and 
+                        I sometimes like to debate with people that my hometown is cooler than Shanghai and Beijing
+                        (Click the Shunde Facts button below 🫵).
                     </p>
                     <p>
-                        <br>I like STEM in general (but not biology). I have done several
-                        high school STEM contests, and held leader-position in some clubs
-                        from my school, all of which you can see from my Experience below.
+                        <br>I'm a STEM kid (but not biology thank you). I'm especially intersted in 
+                        <span style="background-color: #5ec0d1">Astronomy</span>, 
+                        <span style="background-color: #5ec0d1">Game Dev</span>, and recently in 
+                        <span style="background-color: #5ec0d1">Machine Learning.</span>
                     </p>
                     <p>
-                        <br>I'm interested in studying Astronomy, Game Dev, and recently Artificial 
-                        Intelligence. I wish to pursue a career that includes at least two of the above.
+                        <br>Throughout high school, I've done several STEM contests, and held presidency
+                        in a few clubs from my school, all of which you can see from my Experience below.
                     </p>
                     <p>
-                        <br>I will be joining University of Toronto St. George class 2028
-                        as a Computer Science freshman. Look forward to this new journey!
+                        <br>I will be joining UofT St. George '28 as a CS freshman. Look forward to this new journey!
                     </p>
                     <div class="tab-titles">
                         <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
@@ -69,24 +80,27 @@
                             <li><span>Introductory Algorithm/Data Structure</span>
                                 <br>Using basic Python and C++
                             </li>
+                            <li><span>Introductory Game Development</span>
+                                <br>Recreating arcade games using Unity Engine and C#
+                            </li>
+                            <li><span>Introductory Physics Researching</span>
+                                <br>Focuses on the Eddy current on conducting shells under changing magnetic field
+                            </li>
                             <li><span>Introductory Graphic Designing</span>
                                 <br>Canvas designing for School Club promotions
                             </li>
-                            <li><span>Introductory Game Development</span>
-                                <br>Recreating arcade games using Unity Engine
-                            </li>
                             <li><span>Introductory Web Development</span>
-                                <br>The website you are seeing right now!
+                                <br>The website you are seeing right now
                             </li>
                         </ul>
                     </div>
                     <div class="tab-contents" id="experience">
                         <ul>
                             <li><span>School Club President</span>
-                                <br>Math Club, CS Club, Astronomy Club, Physics Club (Founder)
+                                <br>Math Club, CS Club, Astronomy Club ('23-'24); Physics Club ('22-'23, Founder)
                             </li>
                             <li><span>CaYPT Team Captain</span>
-                                <br>Second place at CaYPT 2023; Qualified for IYPT camp
+                                <br>Second place at CaYPT 2023, qualified for IYPT camp
                             </li>
                             <li><span>Significant CEMC Contest Honor Rolls</span>
                                 <br>CCC Sr Honor Roll Group 3 (2022)
@@ -102,13 +116,13 @@
                                 <br>Learning Calisthetics
                             </li>
                             <li><span>Long-distance running</span>
-                                <br>5km pb 22:58; aiming at sub 21 min!
+                                <br>5km pb 22:58; aiming at sub 21 min
                             </li>
-                            <li><span>Philosophy & Weeb Culture</span>
-                                <br>Learning why people like anime is kinda interesting
+                            <li><span>Philosophy</span>
+                                <br>Thinking about things that no one else cares about
                             </li>
                             <li><span>Photography</span>
-                                <br>Click click 📷
+                                <br>Click click
                             </li>
                         </ul>
                     </div>
@@ -121,10 +135,7 @@
                                 <br>The biggest <i>Paifang</i> (arch) in China
                             </li>
                             <li><span>Martial Arts</span>
-                                <br>Bruce Lee's ancestral town
-                            </li>
-                            <li><span>Nice Economy</span>
-                                <br>A substantial manufacturing base in the Pearl River Delta
+                                <br>Bruce Lee's ancestral town 😲
                             </li>
                         </ul>
                     </div>
@@ -132,7 +143,9 @@
             </div>
         </div>
     </div>
+
     <!-- portfolio -->
+
     <div id="portfolio">
         <div class="container">
             <h1 class="sub-title">Stuff I do</h1>
@@ -141,23 +154,45 @@
                     <img src="images/work-1.png">
                     <div class="layer">
                         <h3>Game Development</h3>
-                        <p>
-                            Recreating arcade games 
-                        </p>
-                        <a href="#"></a>
+                        <p>Recreating arcade games on Unity to learn essential Game Dev skills</p>
+                        <a href="#"><i class="fas fa-external-link-alt" style="color: #ACE2E1;"></i></a>
                     </div>
                 </div>
                 <div class="work">
                     <img src="images/work-2.png">
+                    <div class="layer">
+                        <h3>Social Media/Poster Designing</h3>
+                        <p>Making weekly posts about Astronomy news for the Physics Club and Astronomy Club</p>
+                        <a href="#"><i class="fas fa-external-link-alt" style="color: #ACE2E1;"></i></a>
+                    </div>
                 </div>
-                <div class="work">
-                    <img src="images/work-3.png">
+            </div>
+            <a href="#" class="btn">See more</a>
+        </div>
+    </div>
+
+    <!-- contact -->
+    <div id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="contact-left">
+                    <h1 class="sub-title">Contact</h1>
+                    <p><i class="fas fa-paper-plane" style="color: #ACE2E1;"></i>mhyraincaller@gmail.com</p>
+                    <p>Feel free to stalk me, I don't post much stuff anyways.</p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/raincalleer/"><i class="fab fa-instagram" style="color: #5ec0d1;"></i></a>
+                        <a href="https://github.com/RaincallerMei"><i class="fab fa-github" style="color: #5ec0d1;"></i></a>
+                        <a href="https://www.linkedin.com/in/hongyi-mei-16aa531ab/"><i class="fab fa-linkedin-in" style="color: #5ec0d1;"></i></a>
+                        <a href="https://www.youtube.com/channel/UCBfcntbwHU9sFN3NMAfuWGQ"><i class="fab fa-youtube" style="color: #5ec0d1;"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
 
+
+
+    <script>
         var tablinks = document.getElementsByClassName("tab-links");
         var tabcontents = document.getElementsByClassName("tab-contents");
 
@@ -170,6 +205,19 @@
             }
             event.currentTarget.classList.add("active-link");
             document.getElementById(tabname).classList.add("active-tab");
+        }
+
+    </script>
+    <!-- clicking menu for phone -->
+    <script>
+
+        var sidemeu = document.getElementById("sidemenu");
+
+        function openmenu(){
+            sidemeu.style.right = "0"; //when right is "0", it's visible
+        }
+        function closemenu(){
+            sidemeu.style.right = "-200px";
         }
 
     </script>
