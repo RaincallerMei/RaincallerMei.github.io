@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
- 
+  
 <head>
     <meta charset="UTF-8">
     <meta http-equic="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,6 @@
             <nav>
                 <img src="images/logo.png" class="logo">
                 <ul id="sidemenu">
-                    <li><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Projects</a></li>
                     <!-- --------------- -->
@@ -213,6 +212,64 @@
         }
 
     </script>
+    
+    <!-- Ripple！！ -->
+    <script>
+        let lastRippleTime = 0;
+      
+        // helper: create & animate a circle
+        function createRipple(x, y, size, color, duration) {
+          const el = document.createElement('div');
+          el.style.position      = 'fixed';
+          el.style.left          = (x - size/2) + 'px';
+          el.style.top           = (y - size/2) + 'px';
+          el.style.width         = el.style.height = size + 'px';
+          el.style.background    = color;
+          el.style.borderRadius  = '50%';
+          el.style.pointerEvents = 'none';
+          el.style.transform     = 'scale(0)';
+          el.style.opacity       = '1';
+          el.style.transition    =
+            `transform ${duration}s ease-out, opacity ${duration}s ease-out`;
+      
+          document.body.appendChild(el);
+          // trigger the animation
+          requestAnimationFrame(() => {
+            el.style.transform = 'scale(1)';
+            el.style.opacity   = '0';
+          });
+          // cleanup
+          setTimeout(() => el.remove(), duration * 1000);
+        }
+      
+        // 1) BIG, multi-layered ripple on click
+        document.addEventListener('mousedown', e => {
+          // choose 2 or 3 layers
+          const layers = Math.floor(Math.random() * 2) + 2; 
+          const baseSize = 150;
+          for (let i = 0; i < layers; i++) {
+            createRipple(
+              e.clientX,
+              e.clientY,
+              baseSize + i * 50,          // each layer is 50px larger
+              'rgba(94,192,209,0.3)',     // #5EC0D1 at 30% opacity
+              1.2                         // 0.8 seconds fade
+            );
+          }
+        });
+      
+        // 2) SMALL, bright ripples on *every* mousemove (throttled)
+        document.addEventListener('mousemove', e => {
+          createRipple(
+            e.clientX,
+            e.clientY,
+            30,                          // small dot
+            'rgba(176,214,245,0.8)',     // #B0D6F5 at 80% opacity
+            0.4                          // quicker fade
+          );
+        });
+      </script>   
+
 
 </body>
 
