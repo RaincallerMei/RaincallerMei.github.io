@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | RAiNcalleER</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+</head>
+<body>
+  <!-- include the same #header/nav here -->
+  <div id="header">
+        <div class="container">
+            <nav>
+                <img src="images/logo.png" class="logo">
+                        <ul id="sidemenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <i class="fas fa-times" onclick="closemenu()"></i>
+                    </ul>
+                <i class="fas fa-bars" onclick = "openmenu()"></i>
+            </nav>
+            <div class="header-text">
+                <h1>About<br> This <span> Guy</span> Mei</h1>
+                <p>Who?</p>
+            </div>
+        </div>
+    </div>
+
+  <!-- about -->
+    
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="about-col-1">
+                    <img src="images/Funi.jpg">
+                    <p>
+                        Help I'm getting eaten
+                    </p>
+                </div>
+                <div class="about-col-2">
+                    <h1 class="sub-title">About Me</h1>
+                    <p>If you know me online, 
+                        you may have known me as <span style="background-color: #5ec0d1">RAiNcalleER.</span></p>
+                    <p>
+                        <br>I grew up in <span style="background-color: #5ec0d1">Shunde</span>, a small town 
+                        in southern China. I like to annoy people that my hometown is cooler than Shanghai and Beijing because it simply is
+                        (Click the Shunde Facts button below 🫵).
+                    </p>
+                    <p>
+                        <br>I'm interested in  
+                        <span style="background-color: #5ec0d1">Astronomy</span> and 
+                        <span style="background-color: #5ec0d1">Machine Learning</span>. 
+                        After first year in UofT, I grew an interest in 
+                        <span style="background-color: #5ec0d1">Modern East Asian</span> studies as well.
+                    </p>
+                    <p>
+                        <br>Throughout high school, I've done several STEM contests, and held presidency
+                        in a few clubs from my school, all of which you can see from my Experience below.
+                    </p>
+                    <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                        <p class="tab-links" onclick="opentab('hobbies')">Hobbies</p>
+                        <p class="tab-links" onclick="opentab('facts')">Shunde Facts</p>
+                    </div>
+                    <div class="tab-contents active-tab" id="skills">
+                        <ul>
+                            <li><span>Algorithm/Data Structure</span>
+                                <br>Python and C++, CSC240
+                            </li>
+                            <li><span>Introductory Game Development</span>
+                                <br>Recreating arcade games using Unity Engine and C#
+                            </li>
+                            <li><span>Graphic Designing</span>
+                                <br>Canvas designing for School Club promotions
+                            </li>
+                            <li><span>Web Development</span>
+                                <br>The website you are seeing right now
+                            </li>
+                            <li><span>Machine Learning</span>
+                                <br>CNN, RL bots, LLMs, check them out in projects/github (To be updated)
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="experience">
+                        <ul>
+                            <li><span>School Club President</span>
+                                <br>Math Club, CS Club, Astronomy Club ('23-'24); Physics Club ('22-'23, Founder)
+                            </li>
+                            <li><span>Significant CEMC Contest Honor Rolls</span>
+                                <br>Fryer, Honor Roll Group 4 (2021)
+                                <br>CCC Sr Honor Roll Group 3 (2022)
+                                <br>Cayley, Honor Roll Group 4 (2022)
+                                <br>Galois Honor Roll Group 2(2022)
+                            </li>
+                            <li><span>CaYPT Team Captain</span>
+                                <br>Team won second place at CaYPT 2023, qualified for IYPT camp
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="hobbies">
+                        <ul>
+                            <li><span>Body weight workout</span>
+                                <br>Learning Calisthetics
+                            </li>
+                            <li><span>Long-distance running</span>
+                                <br>5km pb 22:58; aiming at sub 21 min
+                            </li>
+                            <li><span>Philosophy</span>
+                                <br>Thinking about things that no one cares about
+                            </li>
+                            <li><span>Photography</span>
+                                <br>Click click 📸
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="facts">
+                        <ul>
+                            Just beautiful
+                            <li><span>Cradle of Cantonese Cuisine</span>
+                                <br>Absolutely epic food, and UNESCO city of Gastronomy :o 
+                            </li>
+                            <li><span>Mt. Shunfeng Park</span>
+                                <br>The biggest <i>Paifang</i> (archway gate) in China (Im so proud of u)
+                            </li>
+                            <li><span>Martial Arts</span>
+                                <br>Bruce Lee's ancestral town
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <script>
+        var tablinks = document.getElementsByClassName("tab-links");
+        var tabcontents = document.getElementsByClassName("tab-contents");
+
+        function opentab(tabname) {
+            for (tablink of tablinks) {
+                tablink.classList.remove("active-link");
+            }
+            for (tabcontent of tabcontents) {
+                tabcontent.classList.remove("active-tab");
+            }
+            event.currentTarget.classList.add("active-link");
+            document.getElementById(tabname).classList.add("active-tab");
+        }
+
+    </script>
+    <!-- clicking menu for phone -->
+    <script>
+
+        var sidemeu = document.getElementById("sidemenu");
+
+        function openmenu(){
+            sidemeu.style.right = "0"; //when right is "0", it's visible
+        }
+        function closemenu(){
+            sidemeu.style.right = "-200px";
+        }
+
+    </script>
+    
+    <!-- Ripple！！ -->
+    <script>
+        let lastRippleTime = 0;
+      
+        // helper: create & animate a circle
+        function createRipple(x, y, size, color, duration) {
+          const el = document.createElement('div');
+          el.style.position      = 'fixed';
+          el.style.left          = (x - size/2) + 'px';
+          el.style.top           = (y - size/2) + 'px';
+          el.style.width         = el.style.height = size + 'px';
+          el.style.background    = color;
+          el.style.borderRadius  = '50%';
+          el.style.pointerEvents = 'none';
+          el.style.transform     = 'scale(0)';
+          el.style.opacity       = '1';
+          el.style.transition    =
+            `transform ${duration}s ease-out, opacity ${duration}s ease-out`;
+      
+          document.body.appendChild(el);
+          // trigger the animation
+          requestAnimationFrame(() => {
+            el.style.transform = 'scale(1)';
+            el.style.opacity   = '0';
+          });
+          // cleanup
+          setTimeout(() => el.remove(), duration * 1000);
+        }
+      
+        // 1) BIG, multi-layered ripple on click
+        document.addEventListener('mousedown', e => {
+          // choose 2 or 3 layers
+          const layers = Math.floor(Math.random() * 2) + 2; 
+          const baseSize = 150;
+          for (let i = 0; i < layers; i++) {
+            createRipple(
+              e.clientX,
+              e.clientY,
+              baseSize + i * 50,          // each layer is 50px larger
+              'rgba(94,192,209,0.3)',     // #5EC0D1 at 30% opacity
+              1.2                         // 0.8 seconds fade
+            );
+          }
+        });
+      
+        // 2) SMALL, bright ripples on *every* mousemove (throttled)
+        document.addEventListener('mousemove', e => {
+          createRipple(
+            e.clientX,
+            e.clientY,
+            30,                          // small dot
+            'rgba(176,214,245,0.8)',     // #B0D6F5 at 80% opacity
+            0.4                          // quicker fade
+          );
+        });
+      </script>   
+</body>
+</html>

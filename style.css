@@ -262,6 +262,34 @@ nav ul li a:hover::after {
 .social-icons a:hover{
     transform: translateY(-5px);
 }
+/* posts */
+#posts .post h2 {
+color: #ACE2E1;    /* or whatever accent you like */
+}
+#posts .post p {
+color: #5ec0d1;       /* dark enough to read */
+}
+/* blog overrides */
+#posts .post {
+  position: relative;
+  padding-bottom: 2em;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 1%;
+  bottom: 1em;
+  background: #f44336;
+  color: #fff;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+.delete-btn:hover {
+  opacity: 0.9;
+}
+
 
 /* --------css for small screens------- */
 nav .fas{
@@ -312,4 +340,10 @@ nav .fas{
     .about-col-1{
         margin-bottom: 20px;
     }
+    #posts .post h2 {
+color: #ACE2E1;    /* or whatever accent you like */
+}
+#posts .post p {
+color: #5ec0d1;       /* dark enough to read */
+}
 }

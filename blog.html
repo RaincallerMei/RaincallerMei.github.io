@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Blog | RAiNcalleER</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+  <style>
+    /* tiny overrides just for blog */
+    #new-post { margin:20px 5%; }
+    #new-post input, #new-post textarea {
+      width:90%; padding:8px; margin:5px 0;
+    }
+    #posts { margin:20px 5%; }
+    .post { border-bottom:1px solid #ACE2E1; padding:10px 0; position:relative; }
+    .post h2 { margin-bottom:5px; color:#5ec0d1; }
+    .post .date { color:#5ec0d1; font-size:0.9em; }
+    .post p { color:#ACE2E1; }
+    .delete-btn {
+      position:absolute; right:1%; bottom:1em;
+      background:#f44336; color:#fff; border:none;
+      padding:4px 8px; cursor:pointer; font-size:0.9em;
+    }
+    .delete-btn:hover { opacity:0.9; }
+  </style>
+</head>
+
+<body>
+    <!-- include the same #header/nav here -->
+    <div id="header">
+        <div class="container">
+            <nav>
+                <img src="images/logo.png" class="logo">
+                        <ul id="sidemenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <i class="fas fa-times" onclick="closemenu()"></i>
+                    </ul>
+                <i class="fas fa-bars" onclick = "openmenu()"></i>
+            </nav>
+            <div class="header-text">
+                <h1>What<br> I <span> Was</span> Thinking</h1>
+                <p>Also out of boredom</p>
+            </div>
+        </div>
+    </div>
+
+  <!-- 1) The “new post” form -->
+  <div id="new-post">
+    <h1 class="sub-title">Write a new blog post</h1>
+    <input  type="text" id="post-title"   placeholder="Title">
+    <textarea id="post-content" rows="6"  placeholder="Your thoughts…"></textarea>
+    <button id="publish-btn" class="btn">Publish</button>
+  </div>
+
+  <!-- 2) Container where we’ll render past posts -->
+  <div id="posts">
+    <h1 class="sub-title">Past posts</h1>
+    <!-- posts injected here by JS -->
+  </div>
+
+  <!-- 3) All your JS at the bottom so DOM elements exist -->
+  <script>
+    const STORAGE_KEY   = 'myBlogPosts';
+    const postsContainer= document.getElementById('posts');
+    const titleInput    = document.getElementById('post-title');
+    const contentInput  = document.getElementById('post-content');
+    const publishBtn    = document.getElementById('publish-btn');
+
+    function loadPosts() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+
+    function savePosts(posts) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    }
+
+    function deletePostAtIndex(idx) {
+      const posts = loadPosts();
+      posts.splice(idx,1);
+      savePosts(posts);
+      renderPosts();
+    }
+
+    function renderPosts() {
+      const posts = loadPosts();
+      // reset, keep the header inside #posts
+      postsContainer.innerHTML = '<h1 class="sub-title">Past posts</h1>';
+      // newest first
+      for (let i = posts.length - 1; i >= 0; i--) {
+        const post = posts[i];
+        const div  = document.createElement('div');
+        div.className = 'post';
+        div.innerHTML = `
+          <h2>${post.title || '<em>Untitled</em>'}</h2>
+          <div class="date">${new Date(post.date).toLocaleString()}</div>
+          <p>${(post.content||'').replace(/\n/g,'<br>')}</p>
+          <button class="delete-btn" data-idx="${i}">Delete</button>
+        `;
+        div.querySelector('.delete-btn')
+           .addEventListener('click', ()=> deletePostAtIndex(i));
+        postsContainer.appendChild(div);
+      }
+    }
+
+    publishBtn.addEventListener('click', ()=>{
+      const title   = titleInput.value.trim();
+      const content = contentInput.value.trim();
+      if (!title || !content) return alert('Please fill both title and content.');
+      const posts = loadPosts();
+      posts.push({ title, content, date: Date.now() });
+      savePosts(posts);
+      titleInput.value = '';
+      contentInput.value = '';
+      renderPosts();
+    });
+
+    // initial render
+    renderPosts();
+
+    // mobile menu toggle (only once)
+    const sidemenu = document.getElementById("sidemenu");
+    function openmenu()  { sidemenu.style.right = "0"; }
+    function closemenu() { sidemenu.style.right = "-200px"; }
+  </script>
+
+
+  <!-- clicking menu for phone -->
+    <script>
+        var sidemeu = document.getElementById("sidemenu");
+
+        function openmenu(){
+            sidemeu.style.right = "0"; //when right is "0", it's visible
+        }
+        function closemenu(){
+            sidemeu.style.right = "-200px";
+        }
+
+    </script>
+    
+    <!-- Ripple！！ -->
+    <script>
+        let lastRippleTime = 0;
+      
+        // helper: create & animate a circle
+        function createRipple(x, y, size, color, duration) {
+          const el = document.createElement('div');
+          el.style.position      = 'fixed';
+          el.style.left          = (x - size/2) + 'px';
+          el.style.top           = (y - size/2) + 'px';
+          el.style.width         = el.style.height = size + 'px';
+          el.style.background    = color;
+          el.style.borderRadius  = '50%';
+          el.style.pointerEvents = 'none';
+          el.style.transform     = 'scale(0)';
+          el.style.opacity       = '1';
+          el.style.transition    =
+            `transform ${duration}s ease-out, opacity ${duration}s ease-out`;
+      
+          document.body.appendChild(el);
+          // trigger the animation
+          requestAnimationFrame(() => {
+            el.style.transform = 'scale(1)';
+            el.style.opacity   = '0';
+          });
+          // cleanup
+          setTimeout(() => el.remove(), duration * 1000);
+        }
+      
+        // 1) BIG, multi-layered ripple on click
+        document.addEventListener('mousedown', e => {
+          // choose 2 or 3 layers
+          const layers = Math.floor(Math.random() * 2) + 2; 
+          const baseSize = 150;
+          for (let i = 0; i < layers; i++) {
+            createRipple(
+              e.clientX,
+              e.clientY,
+              baseSize + i * 50,          // each layer is 50px larger
+              'rgba(94,192,209,0.3)',     // #5EC0D1 at 30% opacity
+              1.2                         // 0.8 seconds fade
+            );
+          }
+        });
+      
+        // 2) SMALL, bright ripples on *every* mousemove (throttled)
+        document.addEventListener('mousemove', e => {
+          createRipple(
+            e.clientX,
+            e.clientY,
+            30,                          // small dot
+            'rgba(176,214,245,0.8)',     // #B0D6F5 at 80% opacity
+            0.4                          // quicker fade
+          );
+        });
+      </script>   
+</body>
+</html>
