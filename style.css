@@ -157,7 +157,7 @@ nav ul li a:hover::after {
 }
 
 /* portfolio */
-#portfolio {
+#portfolio, #research {
     padding: 50px 0;
 }
 
@@ -257,10 +257,62 @@ nav ul li a:hover::after {
     font-size: 30px;
     margin-right: 15px;
     display: inline-block;
-    transition: transform 0.5s;
+    color: #5ec0d1;
+    transition: transform 0.5s, color 0.5s;
 }
 .social-icons a:hover{
     transform: translateY(-5px);
+    color: #ACE2E1;
+}
+.email-link{
+    color: #5ec0d1;
+    text-decoration: none;
+}
+.email-link:hover{
+    color: #ACE2E1;
+}
+.cv-btn{
+    margin: 30px 0;
+}
+/* research & project cards */
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 40px;
+    margin-top: 50px;
+}
+.card {
+    border: 3px solid #ACE2E1;
+    border-radius: 10px;
+    padding: 30px;
+    color: #5ec0d1;
+    line-height: 1.5;
+    transition: transform 0.5s, background 0.5s;
+}
+.card:hover {
+    transform: translateY(-5px);
+    background: #ACE2E133;
+}
+.card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.card .meta {
+    color: #75dad8;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+.card ul {
+    padding-left: 20px;
+}
+.card ul li {
+    margin: 8px 0;
+}
+.card .tag {
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 /* posts */
 #posts .post h2 {
