@@ -1,4 +1,5 @@
 # RaincallerMei.github.io
 ## Hi :)
 
-This is my website that I made before AI took over front end (so yea hand type front end unc hows your back). I'm currently (putting it aside and may come back someday) learning on how to make it better.
+This is my website made with Claude's assistant (i.e. pulling words from my CV down into my page). The designs are all mine.
+I'm currently (putting it aside and may come back someday) learning on how to make it better.
