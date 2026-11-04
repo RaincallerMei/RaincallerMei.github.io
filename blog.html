@@ -8,29 +8,42 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
   <style>
-    /* tiny overrides just for blog */
-    #new-post { margin:20px 5%; }
-    #new-post input, #new-post textarea {
-      width:90%; padding:8px; margin:5px 0;
-    }
-    #posts { margin:20px 5%; }
-    .post { border-bottom:1px solid #ACE2E1; padding:10px 0; position:relative; }
-    .post h2 { margin-bottom:5px; color:#5ec0d1; }
-    .post .date { color:#5ec0d1; font-size:0.9em; }
-    .post p { color:#ACE2E1; }
-    .delete-btn {
-      position:absolute; right:1%; bottom:1em;
-      background:#f44336; color:#fff; border:none;
-      padding:4px 8px; cursor:pointer; font-size:0.9em;
-    }
-    .delete-btn:hover { opacity:0.9; }
+    :root { --bg:#F7EEDD; --fg:#2b3a3f; --accent:#5ec0d1; --soft:#ACE2E1; --card:#fff8ea; --line:#ACE2E1; }
+    html[data-theme="dark"] { --bg:#161b1e; --fg:#e8e2d4; --accent:#5ec0d1; --soft:#2f5d63; --card:#1f272b; --line:#2f5d63; }
+    body { background:var(--bg); color:var(--fg); transition:background .3s,color .3s; }
+    #blog { padding:20px 5% 60px; }
+    #blog .sub-title { font-size:40px; margin:30px 0 15px; }
+    .editor-box, .post { background:var(--card); border:2px solid var(--line); border-radius:10px; padding:16px; margin-bottom:20px; }
+    #post-title, #post-labels, #search { width:100%; padding:10px; margin:6px 0; border:2px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); font-size:16px; }
+    #toolbar { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
+    #toolbar button, .small-btn { background:var(--bg); color:var(--fg); border:2px solid var(--line); border-radius:6px; padding:6px 10px; cursor:pointer; font-size:14px; }
+    #toolbar button:hover, .small-btn:hover { background:var(--soft); }
+    #editor { min-height:200px; padding:12px; border:2px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); overflow:auto; outline:none; line-height:1.6; }
+    #editor:empty::before { content:attr(data-placeholder); opacity:.5; }
+    #editor img, .content img { max-width:100%; border-radius:8px; margin:8px 0; }
+    #editor a, .content a { color:var(--accent); }
+    #editor blockquote, .content blockquote { border-left:4px solid var(--accent); padding-left:12px; margin:10px 0; opacity:.9; }
+    #editor ul, #editor ol, .content ul, .content ol { padding-left:24px; margin:8px 0; }
+    #editor h2, #editor h3, .content h2, .content h3 { color:var(--accent); margin:12px 0 6px; }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:12px; }
+    .actions .btn { margin:0; padding:10px 30px; background:transparent; cursor:pointer; font-size:16px; }
+    .actions .btn:hover { background:var(--soft); }
+    .post h2 { color:var(--accent); margin-bottom:4px; }
+    .post .date { opacity:.7; font-size:.9em; margin-bottom:8px; }
+    .post .content { margin:10px 0; line-height:1.6; }
+    .label { display:inline-block; background:var(--soft); color:var(--fg); border-radius:20px; padding:2px 12px; margin:0 6px 6px 0; font-size:13px; cursor:pointer; border:none; }
+    .label.active { background:var(--accent); color:#fff; }
+    .post-actions { display:flex; gap:8px; margin-top:8px; }
+    .danger { border-color:#f44336 !important; color:#f44336 !important; }
+    #theme-toggle { position:fixed; top:14px; right:14px; z-index:5; }
+    #filters { margin:10px 0; }
+    #status { font-size:14px; opacity:.8; min-height:1.2em; }
   </style>
 </head>
 
 <body>
-    <!-- include the same #header/nav here -->
     <div id="header">
         <div class="container">
             <nav>
@@ -51,85 +64,273 @@
         </div>
     </div>
 
-  <!-- 1) The “new post” form -->
-  <div id="new-post">
-    <h1 class="sub-title">Write a new blog post</h1>
-    <input  type="text" id="post-title"   placeholder="Title">
-    <textarea id="post-content" rows="6"  placeholder="Your thoughts…"></textarea>
-    <button id="publish-btn" class="btn">Publish</button>
-  </div>
+  <button id="theme-toggle" class="small-btn" title="Toggle light/dark">&#9788; / &#9790;</button>
 
-  <!-- 2) Container where we’ll render past posts -->
-  <div id="posts">
+  <div id="blog">
+    <h1 class="sub-title" id="editor-heading">Write a new blog post</h1>
+    <div class="editor-box">
+      <input type="text" id="post-title" placeholder="Title">
+      <div id="toolbar">
+        <button data-cmd="bold" title="Bold"><b>B</b></button>
+        <button data-cmd="italic" title="Italic"><i>I</i></button>
+        <button data-cmd="underline" title="Underline"><u>U</u></button>
+        <button data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+        <button data-cmd="formatBlock" data-val="h2">H2</button>
+        <button data-cmd="formatBlock" data-val="h3">H3</button>
+        <button data-cmd="formatBlock" data-val="blockquote">&ldquo;Quote&rdquo;</button>
+        <button data-cmd="insertUnorderedList">&bull; List</button>
+        <button data-cmd="insertOrderedList">1. List</button>
+        <button id="link-btn">Link</button>
+        <button id="image-btn">Image</button>
+        <button id="file-btn">Attach file</button>
+        <input type="file" id="image-input" accept="image/*" multiple hidden>
+        <input type="file" id="file-input" multiple hidden>
+      </div>
+      <div id="editor" contenteditable="true" data-placeholder="Your thoughts… (paste or drop images here)"></div>
+      <input type="text" id="post-labels" placeholder="Labels, separated by commas">
+      <div class="actions">
+        <button id="publish-btn" class="btn">Publish</button>
+        <button id="cancel-btn" class="small-btn" hidden>Cancel edit</button>
+        <span id="status"></span>
+      </div>
+    </div>
+
     <h1 class="sub-title">Past posts</h1>
-    <!-- posts injected here by JS -->
+    <input type="text" id="search" placeholder="Search posts…">
+    <div id="filters"></div>
+    <div id="posts"></div>
+    <div class="actions">
+      <button id="export-btn" class="small-btn">Export posts (JSON)</button>
+      <button id="import-btn" class="small-btn">Import posts</button>
+      <input type="file" id="import-input" accept="application/json" hidden>
+    </div>
+    <p style="margin-top:12px;font-size:14px;opacity:.7">Posts are saved in this browser only. Use Export to back them up or move them to another device.</p>
   </div>
 
-  <!-- 3) All your JS at the bottom so DOM elements exist -->
   <script>
-    const STORAGE_KEY   = 'myBlogPosts';
-    const postsContainer= document.getElementById('posts');
-    const titleInput    = document.getElementById('post-title');
-    const contentInput  = document.getElementById('post-content');
-    const publishBtn    = document.getElementById('publish-btn');
+    const KEY = 'myBlogPosts';
+    const $ = id => document.getElementById(id);
+    const editor = $('editor'), titleIn = $('post-title'), labelsIn = $('post-labels'), statusEl = $('status');
+    let editingId = null, activeLabel = null;
 
+    // ---------- theme ----------
+    function setTheme(t) {
+      document.documentElement.dataset.theme = t;
+      try { localStorage.setItem('blogTheme', t); } catch (e) {}
+    }
+    let savedTheme = null;
+    try { savedTheme = localStorage.getItem('blogTheme'); } catch (e) {}
+    setTheme(savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    $('theme-toggle').onclick = () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+
+    // ---------- storage ----------
+    function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function flash(msg) { statusEl.textContent = msg; }
     function loadPosts() {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      try {
+        return JSON.parse(localStorage.getItem(KEY) || '[]').map((p, i) => ({
+          id: String(p.id || p.date + '-' + i),
+          labels: p.labels || [],
+          html: p.html || esc(p.content || '').replace(/\n/g, '<br>'),
+          title: p.title, date: p.date, edited: p.edited
+        }));
+      } catch (e) { return []; }
     }
-
     function savePosts(posts) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+      try { localStorage.setItem(KEY, JSON.stringify(posts)); return true; }
+      catch (e) { flash('Storage is full. Export your posts and delete some, or use smaller images.'); return false; }
     }
 
-    function deletePostAtIndex(idx) {
-      const posts = loadPosts();
-      posts.splice(idx,1);
-      savePosts(posts);
-      renderPosts();
+    // ---------- sanitizer ----------
+    const OK = ['B','I','U','S','STRIKE','STRONG','EM','H2','H3','UL','OL','LI','BLOCKQUOTE','A','IMG','BR','P','DIV','SPAN','CODE','PRE'];
+    const DROP = ['SCRIPT','STYLE','IFRAME','OBJECT','EMBED','LINK','META'];
+    function cleanNode(node) {
+      for (const el of [...node.children]) {
+        if (DROP.includes(el.tagName)) { el.remove(); continue; }
+        cleanNode(el);
+        if (!OK.includes(el.tagName)) { el.replaceWith(...el.childNodes); continue; }
+        for (const a of [...el.attributes]) {
+          const v = a.value;
+          const good = a.name === 'download' || a.name === 'alt'
+            || (a.name === 'src' && el.tagName === 'IMG' && /^(https?:|data:image\/)/i.test(v))
+            || (a.name === 'href' && el.tagName === 'A' && /^(https?:|mailto:|data:)/i.test(v));
+          if (!good) el.removeAttribute(a.name);
+        }
+        if (el.tagName === 'A' && el.hasAttribute('href')) { el.target = '_blank'; el.rel = 'noopener noreferrer'; }
+      }
+    }
+    function clean(html) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      cleanNode(doc.body);
+      return doc.body.innerHTML;
     }
 
-    function renderPosts() {
-      const posts = loadPosts();
-      // reset, keep the header inside #posts
-      postsContainer.innerHTML = '<h1 class="sub-title">Past posts</h1>';
-      // newest first
-      for (let i = posts.length - 1; i >= 0; i--) {
-        const post = posts[i];
-        const div  = document.createElement('div');
-        div.className = 'post';
-        div.innerHTML = `
-          <h2>${post.title || '<em>Untitled</em>'}</h2>
-          <div class="date">${new Date(post.date).toLocaleString()}</div>
-          <p>${(post.content||'').replace(/\n/g,'<br>')}</p>
-          <button class="delete-btn" data-idx="${i}">Delete</button>
-        `;
-        div.querySelector('.delete-btn')
-           .addEventListener('click', ()=> deletePostAtIndex(i));
-        postsContainer.appendChild(div);
+    // ---------- editor ----------
+    document.querySelectorAll('#toolbar [data-cmd]').forEach(b => {
+      b.onmousedown = e => e.preventDefault();
+      b.onclick = () => { editor.focus(); document.execCommand(b.dataset.cmd, false, b.dataset.val || null); };
+    });
+    $('link-btn').onmousedown = e => e.preventDefault();
+    $('link-btn').onclick = () => {
+      const url = prompt('Link URL (https://…)');
+      if (url) document.execCommand('createLink', false, url);
+    };
+    $('image-btn').onclick = () => $('image-input').click();
+    $('file-btn').onclick = () => $('file-input').click();
+    $('image-input').onchange = e => { addFiles([...e.target.files]); e.target.value = ''; };
+    $('file-input').onchange = e => { addFiles([...e.target.files]); e.target.value = ''; };
+
+    function readAsDataURL(file) {
+      return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+    }
+    async function shrinkImage(file) {
+      const url = await readAsDataURL(file);
+      if (file.type === 'image/gif' || file.type === 'image/svg+xml') return url;
+      const img = new Image();
+      await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
+      const scale = Math.min(1, 1200 / Math.max(img.width, img.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width * scale);
+      c.height = Math.round(img.height * scale);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      return c.toDataURL('image/jpeg', 0.85);
+    }
+    function insertHTML(html) { editor.focus(); document.execCommand('insertHTML', false, html); }
+    async function addFiles(files) {
+      for (const f of files) {
+        const name = esc(f.name).replace(/"/g, '&quot;');
+        try {
+          if (f.type.startsWith('image/')) {
+            insertHTML('<img src="' + await shrinkImage(f) + '" alt="' + name + '"><br>');
+          } else if (f.size > 1.5 * 1024 * 1024) {
+            flash(f.name + ' is larger than 1.5 MB and was skipped.');
+          } else {
+            insertHTML('<a href="' + await readAsDataURL(f) + '" download="' + name + '">&#128206; ' + name + '</a>&nbsp;');
+          }
+        } catch (e) { flash('Could not read ' + f.name); }
       }
     }
 
-    publishBtn.addEventListener('click', ()=>{
-      const title   = titleInput.value.trim();
-      const content = contentInput.value.trim();
-      if (!title || !content) return alert('Please fill both title and content.');
-      const posts = loadPosts();
-      posts.push({ title, content, date: Date.now() });
-      savePosts(posts);
-      titleInput.value = '';
-      contentInput.value = '';
-      renderPosts();
+    editor.addEventListener('paste', e => {
+      e.preventDefault();
+      const files = [...(e.clipboardData.files || [])];
+      if (files.length) { addFiles(files); return; }
+      document.execCommand('insertText', false, e.clipboardData.getData('text/plain'));
+    });
+    editor.addEventListener('dragover', e => e.preventDefault());
+    editor.addEventListener('drop', e => {
+      if (!e.dataTransfer.files.length) return;
+      e.preventDefault();
+      addFiles([...e.dataTransfer.files]);
     });
 
-    // initial render
-    renderPosts();
+    // ---------- publish / edit ----------
+    function resetForm() {
+      editingId = null;
+      titleIn.value = ''; labelsIn.value = ''; editor.innerHTML = '';
+      $('publish-btn').textContent = 'Publish';
+      $('cancel-btn').hidden = true;
+      $('editor-heading').textContent = 'Write a new blog post';
+    }
+    $('cancel-btn').onclick = resetForm;
+    $('publish-btn').onclick = () => {
+      const title = titleIn.value.trim();
+      const hasContent = editor.textContent.trim() || editor.querySelector('img,a');
+      if (!title || !hasContent) return flash('Please add a title and some content.');
+      const html = clean(editor.innerHTML).trim();
+      const labels = [...new Set(labelsIn.value.split(',').map(l => l.trim().toLowerCase()).filter(Boolean))];
+      const posts = loadPosts();
+      const existing = posts.find(p => p.id === editingId);
+      if (existing) Object.assign(existing, { title, html, labels, edited: Date.now() });
+      else posts.push({ id: String(Date.now()), title, html, labels, date: Date.now() });
+      if (!savePosts(posts)) return;
+      resetForm();
+      flash('Saved.');
+      render();
+    };
 
-    // mobile menu toggle (only once)
-    const sidemenu = document.getElementById("sidemenu");
-    function openmenu()  { sidemenu.style.right = "0"; }
-    function closemenu() { sidemenu.style.right = "-200px"; }
+    // ---------- render ----------
+    function labelButton(l, onclick) {
+      const b = document.createElement('button');
+      b.className = 'label' + (l === activeLabel ? ' active' : '');
+      b.textContent = '#' + l;
+      b.onclick = onclick;
+      return b;
+    }
+    function startEdit(p) {
+      editingId = p.id;
+      titleIn.value = p.title;
+      labelsIn.value = p.labels.join(', ');
+      editor.innerHTML = clean(p.html);
+      $('publish-btn').textContent = 'Save changes';
+      $('cancel-btn').hidden = false;
+      $('editor-heading').textContent = 'Edit post';
+      $('blog').scrollIntoView({ behavior: 'smooth' });
+    }
+    function render() {
+      const posts = loadPosts();
+      const q = $('search').value.trim().toLowerCase();
+      const all = [...new Set(posts.flatMap(p => p.labels))].sort();
+      if (activeLabel && !all.includes(activeLabel)) activeLabel = null;
+      $('filters').replaceChildren(...all.map(l => labelButton(l, () => { activeLabel = activeLabel === l ? null : l; render(); })));
+
+      const shown = posts
+        .filter(p => !activeLabel || p.labels.includes(activeLabel))
+        .filter(p => !q || (p.title + ' ' + p.html.replace(/<[^>]*>/g, ' ') + ' ' + p.labels.join(' ')).toLowerCase().includes(q))
+        .sort((a, b) => b.date - a.date);
+
+      const box = $('posts');
+      box.innerHTML = shown.length ? '' : '<p style="opacity:.7">No posts yet.</p>';
+      for (const p of shown) {
+        const div = document.createElement('div');
+        div.className = 'post';
+        div.innerHTML = '<h2></h2><div class="date"></div><div class="content"></div><div class="tags"></div>'
+          + '<div class="post-actions"><button class="small-btn edit">Edit</button><button class="small-btn danger del">Delete</button></div>';
+        div.querySelector('h2').textContent = p.title || 'Untitled';
+        div.querySelector('.date').textContent = new Date(p.date).toLocaleString() + (p.edited ? ' (edited)' : '');
+        div.querySelector('.content').innerHTML = clean(p.html);
+        div.querySelector('.tags').replaceChildren(...p.labels.map(l => labelButton(l, () => { activeLabel = l; render(); })));
+        div.querySelector('.edit').onclick = () => startEdit(p);
+        div.querySelector('.del').onclick = () => {
+          if (!confirm('Delete this post?')) return;
+          savePosts(loadPosts().filter(x => x.id !== p.id));
+          render();
+        };
+        box.appendChild(div);
+      }
+    }
+    $('search').oninput = render;
+
+    // ---------- export / import ----------
+    $('export-btn').onclick = () => {
+      const blob = new Blob([JSON.stringify(loadPosts(), null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'blog-posts.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    };
+    $('import-btn').onclick = () => $('import-input').click();
+    $('import-input').onchange = async e => {
+      try {
+        const incoming = JSON.parse(await e.target.files[0].text());
+        if (!Array.isArray(incoming)) throw new Error('not an array');
+        const posts = loadPosts();
+        const ids = new Set(posts.map(p => p.id));
+        incoming.filter(p => p && p.title && !ids.has(String(p.id))).forEach(p => posts.push({
+          id: String(p.id || Date.now() + Math.random()),
+          title: String(p.title),
+          html: clean(String(p.html || '')),
+          labels: Array.isArray(p.labels) ? p.labels.map(String) : [],
+          date: Number(p.date) || Date.now()
+        }));
+        if (savePosts(posts)) { flash('Imported.'); render(); }
+      } catch (err) { flash('That file is not a valid posts export.'); }
+      e.target.value = '';
+    };
+
+    render();
   </script>
-
 
   <!-- clicking menu for phone -->
     <script>
@@ -141,14 +342,10 @@
         function closemenu(){
             sidemeu.style.right = "-200px";
         }
-
     </script>
-    
+
     <!-- Ripple！！ -->
     <script>
-        let lastRippleTime = 0;
-      
-        // helper: create & animate a circle
         function createRipple(x, y, size, color, duration) {
           const el = document.createElement('div');
           el.style.position      = 'fixed';
@@ -162,43 +359,28 @@
           el.style.opacity       = '1';
           el.style.transition    =
             `transform ${duration}s ease-out, opacity ${duration}s ease-out`;
-      
+
           document.body.appendChild(el);
-          // trigger the animation
           requestAnimationFrame(() => {
             el.style.transform = 'scale(1)';
             el.style.opacity   = '0';
           });
-          // cleanup
           setTimeout(() => el.remove(), duration * 1000);
         }
-      
-        // 1) BIG, multi-layered ripple on click
+
+        // BIG, multi-layered ripple on click
         document.addEventListener('mousedown', e => {
-          // choose 2 or 3 layers
-          const layers = Math.floor(Math.random() * 2) + 2; 
+          const layers = Math.floor(Math.random() * 2) + 2;
           const baseSize = 150;
           for (let i = 0; i < layers; i++) {
-            createRipple(
-              e.clientX,
-              e.clientY,
-              baseSize + i * 50,          // each layer is 50px larger
-              'rgba(94,192,209,0.3)',     // #5EC0D1 at 30% opacity
-              1.2                         // 0.8 seconds fade
-            );
+            createRipple(e.clientX, e.clientY, baseSize + i * 50, 'rgba(94,192,209,0.3)', 1.2);
           }
         });
-      
-        // 2) SMALL, bright ripples on *every* mousemove (throttled)
+
+        // SMALL, bright ripples on every mousemove
         document.addEventListener('mousemove', e => {
-          createRipple(
-            e.clientX,
-            e.clientY,
-            30,                          // small dot
-            'rgba(176,214,245,0.8)',     // #B0D6F5 at 80% opacity
-            0.4                          // quicker fade
-          );
+          createRipple(e.clientX, e.clientY, 30, 'rgba(176,214,245,0.8)', 0.4);
         });
-      </script>   
+    </script>
 </body>
 </html>
