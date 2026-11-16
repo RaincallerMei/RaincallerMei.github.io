@@ -5,22 +5,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Blog | RAiNcalleER</title>
   <link rel="stylesheet" href="style.css">
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
   <style>
-    :root { --bg:#F7EEDD; --fg:#2b3a3f; --accent:#5ec0d1; --soft:#ACE2E1; --card:#fff8ea; --line:#ACE2E1; }
-    html[data-theme="dark"] { --bg:#161b1e; --fg:#e8e2d4; --accent:#5ec0d1; --soft:#2f5d63; --card:#1f272b; --line:#2f5d63; }
-    body { background:var(--bg); color:var(--fg); transition:background .3s,color .3s; }
+    body { background:var(--page-bg); color:var(--fg); transition:background .3s,color .3s; }
     #blog { padding:20px 5% 60px; }
     #blog .sub-title { font-size:40px; margin:30px 0 15px; }
     .editor-box, .post { background:var(--card); border:2px solid var(--line); border-radius:10px; padding:16px; margin-bottom:20px; }
-    #post-title, #post-labels, #search { width:100%; padding:10px; margin:6px 0; border:2px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); font-size:16px; }
+    #post-title, #post-labels, #search { width:100%; padding:10px; margin:6px 0; border:2px solid var(--line); border-radius:6px; background:var(--page-bg); color:var(--fg); font-size:16px; }
     #toolbar { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
-    #toolbar button, .small-btn { background:var(--bg); color:var(--fg); border:2px solid var(--line); border-radius:6px; padding:6px 10px; cursor:pointer; font-size:14px; }
+    #toolbar button, .small-btn { background:var(--page-bg); color:var(--fg); border:2px solid var(--line); border-radius:6px; padding:6px 10px; cursor:pointer; font-size:14px; }
     #toolbar button:hover, .small-btn:hover { background:var(--soft); }
-    #editor { min-height:200px; padding:12px; border:2px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); overflow:auto; outline:none; line-height:1.6; }
+    #editor { min-height:200px; padding:12px; border:2px solid var(--line); border-radius:6px; background:var(--page-bg); color:var(--fg); overflow:auto; outline:none; line-height:1.6; }
     #editor:empty::before { content:attr(data-placeholder); opacity:.5; }
     #editor img, .content img { max-width:100%; border-radius:8px; margin:8px 0; }
     #editor a, .content a { color:var(--accent); }
@@ -34,10 +33,9 @@
     .post .date { opacity:.7; font-size:.9em; margin-bottom:8px; }
     .post .content { margin:10px 0; line-height:1.6; }
     .label { display:inline-block; background:var(--soft); color:var(--fg); border-radius:20px; padding:2px 12px; margin:0 6px 6px 0; font-size:13px; cursor:pointer; border:none; }
-    .label.active { background:var(--accent); color:#fff; }
+    .label.active { background:var(--accent); color:var(--badge-fg); }
     .post-actions { display:flex; gap:8px; margin-top:8px; }
     .danger { border-color:#f44336 !important; color:#f44336 !important; }
-    #theme-toggle { position:fixed; top:14px; right:14px; z-index:5; }
     #filters { margin:10px 0; }
     #status { font-size:14px; opacity:.8; min-height:1.2em; }
   </style>
@@ -63,8 +61,6 @@
             </div>
         </div>
     </div>
-
-  <button id="theme-toggle" class="small-btn" title="Toggle light/dark">&#9788; / &#9790;</button>
 
   <div id="blog">
     <h1 class="sub-title" id="editor-heading">Write a new blog post</h1>
@@ -112,16 +108,6 @@
     const $ = id => document.getElementById(id);
     const editor = $('editor'), titleIn = $('post-title'), labelsIn = $('post-labels'), statusEl = $('status');
     let editingId = null, activeLabel = null;
-
-    // ---------- theme ----------
-    function setTheme(t) {
-      document.documentElement.dataset.theme = t;
-      try { localStorage.setItem('blogTheme', t); } catch (e) {}
-    }
-    let savedTheme = null;
-    try { savedTheme = localStorage.getItem('blogTheme'); } catch (e) {}
-    setTheme(savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
-    $('theme-toggle').onclick = () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 
     // ---------- storage ----------
     function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
