@@ -27,30 +27,6 @@
     --card: #132338;
     --soft: #1b3350;
 }
-:root[data-theme="graphite"] {
-    --page-bg: #17181b;
-    --text: #b9dcdb;
-    --line: #43484e;
-    --accent: #ACE2E1;
-    --hover: #26292d;
-    --badge-bg: #ACE2E1;
-    --badge-fg: #17181b;
-    --fg: #e6efef;
-    --card: #1e2024;
-    --soft: #2c3035;
-}
-:root[data-theme="aurora"] {
-    --page-bg: #150f24;
-    --text: #a8e8cf;
-    --line: #4a3a78;
-    --accent: #c6a8f5;
-    --hover: #261b42;
-    --badge-bg: #a8e8cf;
-    --badge-fg: #150f24;
-    --fg: #e4f7ef;
-    --card: #1c1430;
-    --soft: #2d2150;
-}
 
 * {
     margin: 0;
@@ -80,7 +56,7 @@ body {
 nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     flex-wrap: wrap;
 }
 nav ul li {

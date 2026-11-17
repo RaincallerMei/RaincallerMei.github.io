@@ -1,9 +1,7 @@
 (function () {
   var themes = [
     ["light", "Light", "#F7EEDD"],
-    ["midnight", "Midnight", "#0e1a2b"],
-    ["graphite", "Graphite", "#17181b"],
-    ["aurora", "Aurora", "#150f24"]
+    ["midnight", "Midnight", "#0e1a2b"]
   ];
   var root = document.documentElement;
 
@@ -18,7 +16,7 @@
   function initialTheme() {
     var saved = savedTheme();
     if (isValid(saved)) return saved;
-    return "midnight";
+    return "light";
   }
 
   function applyTheme(name) {
