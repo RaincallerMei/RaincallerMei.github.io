@@ -18,8 +18,7 @@
   function initialTheme() {
     var saved = savedTheme();
     if (isValid(saved)) return saved;
-    var dark = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
-    return dark ? "midnight" : "light";
+    return "midnight";
   }
 
   function applyTheme(name) {

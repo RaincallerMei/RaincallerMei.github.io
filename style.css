@@ -529,16 +529,11 @@ nav ul li a:hover::after {
 .showcase-links a:hover {
     color: var(--accent);
 }
-.showcase-empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-    border: 3px dashed var(--line);
-    border-radius: 10px;
-    padding: 30px;
-    color: var(--text);
-    text-align: center;
+.showcase-category:has(+ .showcase-grid:empty) {
+    display: none;
+}
+.showcase-grid:empty {
+    display: none;
 }
 @media only screen and (max-width: 1000px) {
     .showcase-grid {
